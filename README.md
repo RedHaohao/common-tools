@@ -2,5 +2,7 @@
   一些通用的工具，持续更新
 
 ### SQLOP
- 基于qt的数据库操作 支持MYSQL SQLITE 包括增删改查 导入和导出
- 其中表的导出语句需要自己进行更改。
+- 支持mysql sqlite
+- 包括增删改查，导入和导出
+- mysql导出的是sqlite.db文件，导入mysql时需要原先就有数据库并且建立了默认连接
+- sqlite导出时需要 将默认连接的类型改为QSQLITE 在createConnection()中修改
