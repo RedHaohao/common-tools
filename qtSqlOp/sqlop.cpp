@@ -11,9 +11,273 @@ SqlOp::SqlOp()
 	//初始化sql语句
 	//MFL_DevInfo 
 	m_vSqlCreatable.pop_back();
-	m_vSqlCreatable.append("建表语句");
+	m_vSqlCreatable.append(
+		"create table MFL_DevInfo("
+		"DevID                CHAR(8)                        not null,"
+		"DevName              VARCHAR(25),"
+		"SysName              VARCHAR(50),"
+		"CheckCompany         VARCHAR(60),"
+		"CheckMan             VARCHAR(30),"
+		"ProductionDate       DATE,"
+		"SellDate             DATE,"
+		"HardwareVersion      VARCHAR(8),"
+		"SoftwareVersion      VARCHAR(8),"
+		"ChannelNumber        INTEGER,"
+		"SpaceLength          FLOAT,"
+		"StepLength           FLOAT,"
+		"DevWidth             FLOAT,"
+		"DevLength            FLOAT,"
+		"DevBackEndLength     FLOAT,"
+		"DevFrontEndLength    FLOAT,"
+		"DevWeight            FLOAT,"
+		"ServicePhone         VARCHAR(20),"
+		"Remark               VARCHAR(200),"
+		"AdjustGroupID          CHAR(38),"
+		"primary key(DevID));"
+		);
+
+	//MFL_DeAdjust
+	m_vSqlCreatable.append(
+		"create table MFL_DeAdjust ("
+		"AdjustID             NUMERIC(6)                     not null,"
+		"DevID                CHAR(8),"
+		"AdjustTime           DATE,"
+		"Remark               VARCHAR(200),"
+		"ThresholdValue1      FLOAT,"
+		"ThresholdPer1        FLOAT,"
+		"ThresholdPer1X       FLOAT,"
+		"ThresholdPer1Value   FLOAT,"
+		"ThresholdPer2        FLOAT,"
+		"ThresholdPer2X       FLOAT,"
+		"ThresholdPer2Value   FLOAT,"
+		"ThresholdPer3        FLOAT,"
+		"ThresholdPer3X       FLOAT,"
+		"ThresholdPer3Value   FLOAT,"
+		"ThresholdPer4        FLOAT,"
+		"ThresholdPer4X       FLOAT,"
+		"ThresholdPer4Value   FLOAT,"
+		"Parameter1           FLOAT,"
+		"Parameter2           FLOAT,"
+		"Parameter3           FLOAT,"
+		"Parameter4           FLOAT,"
+		"Parameter5           FLOAT,"
+		"SteelThickness       INT,"
+		"DisValue             INT,"
+		"AdjustType             INT,"
+		"AdjustGroupID          CHAR(38),"
+		"primary key(AdjustID),"
+		"foreign key(DevID)"
+		"references MFL_DevInfo(DevID) ); ");
+
+	//MFL_DevFactors
+	m_vSqlCreatable.append(
+		"create table MFL_DevFactors("
+		"DevCompID            NUMERIC(6)                     not null,"
+		"DevID                CHAR(8)                        ,"
+		"SteelThickness       INT,"
+		"DisValue             INT,"
+		"Channel1Factor       float,"
+		"Channel2Factor       float,"
+		"Channel3Factor       float,"
+		"Channel4Factor       float,"
+		"Channel5Factor       float,"
+		"Channel6Factor       float,"
+		"Channel7Factor       float,"
+		"Channel8Factor       float,"
+		"Channel9Factor       float,"
+		"Channel10Factor      float,"
+		"Channel11Factor      float,"
+		"Channel12Factor      float,"
+		"Channel13Factor      float,"
+		"Channel14Factor      float,"
+		"Channel15Factor      float,"
+		"Channel16Factor      float,"
+		"Channel17Factor      float,"
+		"Channel18Factor      float,"
+		"Channel19Factor      float,"
+		"Channel20Factor      float,"
+		"Channel21Factor      float,"
+		"Channel22Factor      float,"
+		"Channel23Factor      float,"
+		"Channel24Factor      float,"
+		"Channel25Factor      float,"
+		"Channel26Factor      float,"
+		"Channel27Factor      float,"
+		"Channel28Factor      float,"
+		"Channel29Factor      float,"
+		"Channel30Factor      float,"
+		"Channel31Factor      float,"
+		"Channel32Factor      float,"
+		"Channel33Factor      float,"
+		"Channel34Factor      float,"
+		"Channel35Factor      float,"
+		"Channel36Factor      float,"
+		"CompType             INT,"
+		"primary key(DevCompID)); "
+		);
+
+	//MFL_ProjectInfo
+	m_vSqlCreatable.append(
+		"create table MFL_ProjectInfo ("
+		"ProjectID            CHAR(38)                       not null,"
+		"DevID                CHAR(8)                                ,"
+		"ProjectName          VARCHAR(50),"
+		"CompanyName          VARCHAR(60),"
+		"MFLAlert             FLOAT,"
+		"EnvShape             VARCHAR(20),"
+		"PointPosition        INTEGER,"
+		"CoordinatesAutoGen   BOOL,"
+		"EnvLength            FLOAT,"
+		"EnvWidth             FLOAT,"
+		"EnvArea              FLOAT,"
+		"PlateNumber          INTEGER,"
+		"IsAutoCreateEdge     BOOL,"
+		"EdgePlateNumber      INTEGER,"
+		"EdgePlateWidth       FLOAT,"
+		"DefectPlateNumber    INTEGER                         default 0,"
+		"CheckMan             VARCHAR(20),"
+		"CreateTime           DATE,"
+		"CheckTime            DATE,"
+		"UsedYear             INTEGER,"
+		"PlateThickness       FLOAT,"
+		"EdgePlateThickness   float,"
+		"CoatThickness        FLOAT,"
+		"CoatStatus           VARCHAR(50),"
+		"PlateMaterial        VARCHAR(50),"
+		"StoreMaterial        VARCHAR(50),"
+		"DefectArea20         FLOAT                           default 0,"
+		"DefectArea40         FLOAT                           default 0,"
+		"DefectArea60         FLOAT                           default 0,"
+		"DefectArea80         FLOAT                           default 0,"
+		"MaxDefectPercent     FLOAT                           default 0,"
+		"ProjectPic           LONG VARBINARY,"
+		"IsCompleted          BOOL,"
+		"EdgeCircleDegree     INTEGER,"
+		"Remark               VARCHAR(200),"
+		"primary key(ProjectID),"
+		"foreign key(DevID)"
+		"references MFL_DevInfo(DevID));"
+		);
+	
+	//MFL_PlateInfo
+	m_vSqlCreatable.append(
+		"create table MFL_PlateInfo("
+		"PlateID              CHAR(38)                       not null,"
+		"ProjectID            CHAR(38),"
+		"RowNo                int,"
+		"ColumnNo             int,"
+		"PlateName            VARCHAR(50),"
+		"PointPosition        INTEGER,"
+		"PlateType            INTEGER,"
+		"PlateLength          FLOAT,"
+		"PlateWidth           FLOAT,"
+		"PlateLength2         FLOAT,"
+		"PlateWidth2          FLOAT,"
+		"XCoords              FLOAT,"
+		"YCoords              FLOAT,"
+		"CreateTime           DATE,"
+		"CheckTime            DATE,"
+		"DefectArea20         FLOAT                           default 0,"
+		"DefectArea40         FLOAT                           default 0,"
+		"DefectArea60         FLOAT                           default 0,"
+		"DefectArea80         FLOAT                           default 0,"
+		"MaxDefectPercent     FLOAT                           default 0,"
+		"PlateArea            FLOAT,"
+		"ScanPercent          FLOAT                           default 0,"
+		"IsDefect             BOOL                            default '0',"
+		"PlatePic             LONG VARBINARY,"
+		"PlatePic20           LONG VARBINARY,"
+		"PlatePic30           LONG VARBINARY,"
+		"PlatePic40           LONG VARBINARY,"
+		"PlatePic50           LONG VARBINARY,"
+		"PlatePic60           LONG VARBINARY,"
+		"PlatePic70           LONG VARBINARY,"
+		"PlatePic80           LONG VARBINARY,"
+		"Remark               VARCHAR(200),"
+		"DetectDirection      INT,"
+		"primary key(PlateID),"
+		"foreign key(ProjectID)"
+		"references MFL_ProjectInfo(ProjectID) ); "
+		);
+	
+	//MFL_TrackInfo
+	m_vSqlCreatable.append(
+		"create table MFL_TrackInfo("
+		"TrackID              CHAR(38)                       not null,"
+		"PlateID              CHAR(38),"
+		"TrackRowNo           INT,"
+		"TrackColumnNo        INT,"
+		"XCoords              FLOAT,"
+		"YCoords              FLOAT,"
+		"CheckAngle           INTEGER                         default 0,"
+		"CheckDirection       INTEGER                         default 0,"
+		"TrackLength          FLOAT,"
+		"TrackWidth           FLOAT,"
+		"CreateTime           DATE,"
+		"CheckTime            DATE,"
+		"DefectArea20         FLOAT                           default 0,"
+		"DefectArea40         FLOAT                           default 0,"
+		"DefectArea60         FLOAT                           default 0,"
+		"DefectArea80         FLOAT                           default 0,"
+		"MaxDefectPercent     FLOAT                           default 0,"
+		"TrackPic             LONG VARBINARY,"
+		"Remark               VARCHAR(200),"
+		"ChannelNumber        INTEGER,"
+		"SpaceLength          FLOAT,"
+		"StepLength           FLOAT,"
+		"primary key(TrackID),"
+		"foreign key(PlateID)"
+		"references MFL_PlateInfo(PlateID) "
+		");"
+		);
+
+	//MFL_TrackCheckRecord
+	m_vSqlCreatable.append(
+		"create table MFL_TrackCheckRecord("
+		"RecordID             CHAR(38)                       not null,"
+		"TrackID              CHAR(38),"
+		"ChannelID            CHAR(3),"
+		"CheckTime            DATE,"
+		"XCoords              FLOAT,"
+		"YCoords              FLOAT,"
+		"CheckValue           FLOAT,"
+		"WaveletValue         FLOAT,"
+		"DefectPercent        FLOAT                           default 0,"
+		"RecordType        INT,"
+		"primary key(RecordID),"
+		"foreign key(TrackID)"
+		"references MFL_TrackInfo(TrackID)"
+		");"
+		);
+
+	//MFL_TrackSSRecord
+	m_vSqlCreatable.append(
+		"CREATE TABLE MFL_TrackSSRecord("
+		"RecordID             CHAR(38)                       not null,"
+		"TrackID              CHAR(38),"
+		"ChannelID            CHAR(3),"
+		"CheckTime            DATE,"
+		"XCoords              FLOAT,"
+		"YCoords              FLOAT,"
+		"CheckValue           FLOAT,"
+		"WaveletValue         FLOAT,"
+		"DefectPercent        FLOAT                           default 0,"
+		"primary key(RecordID),"
+		"foreign key(TrackID)"
+		"references MFL_TrackInfo(TrackID)"
+		"); "
+		);
 
 
+	m_vSqlCreatable.append(
+		"CREATE INDEX [ProjectIDIndex] ON [MFL_PlateInfo] ([ProjectID]); "
+		);
+	m_vSqlCreatable.append(
+		"CREATE INDEX [TrackID_ChannelID] ON [MFL_TrackCheckRecord] ([TrackID], [ChannelID]); "
+		);
+	m_vSqlCreatable.append(
+		"CREATE INDEX [PlateIDIndex] ON MFL_TrackInfo([PlateID]); "
+		);
 
 	
 	
@@ -21,7 +285,8 @@ SqlOp::SqlOp()
 
 SqlOp::~SqlOp()
 {
-
+	//释放内存
+	QVector<QString>().swap(m_vSqlCreatable);
 }
 
 
@@ -55,7 +320,16 @@ bool SqlOp::CreateDatabase(const QString& HostName, const QString& DatabaseName,
 
 	if (db.open())
 	{
-
+		//Initial_sql();  //初始化建表语句
+		for (int i = 0; i < 3;i++)
+			m_vSqlCreatable.pop_back();
+		
+		m_vSqlCreatable.append(
+			"CREATE INDEX ProjectIDIndex ON MFL_PlateInfo (ProjectID);"
+			"CREATE INDEX TrackID_ChannelID ON MFL_TrackCheckRecord(TrackID, ChannelID);"
+			"CREATE INDEX PlateIDIndex ON MFL_TrackInfo(PlateID);"
+			);
+		
 		QVectorIterator<QString> i(m_vSqlCreatable);   //java形式的迭代器
 		while (i.hasNext())      //遍历执行建表语句
 		{
@@ -184,7 +458,7 @@ bool SqlOp::InitConnection(QVector<QString> DbName, const QString& HostName, con
 * 函数介绍：检测当前年份 是否有当前年份的数据库，无则建库 建连接，并将信息添加到参数类的 mapDbConnectionName
 * 输入参数：HostName ：主机IP地址 UserName ：用户名 Password：密码  map：系统参数类中的map
 * 输出参数：无
-* 返回值  ：QVector<QString> result 存有数据库的名字
+* 返回值  ：bool 创建成功 false 创建失败
 ********************************************************************************************/
 
 bool SqlOp::CreateCurrentYearDB(QMap<int, QString>& map, const QString& HostName, const QString& UserName, const QString& Password)
@@ -218,7 +492,7 @@ bool SqlOp::CreateCurrentYearDB(QMap<int, QString>& map, const QString& HostName
 					" MFL_TrackSSRecord.RecordID"
 					" FROM"
 					" (SELECT RecordID FROM MFL_TrackSSRecord WHERE"
-					" TrackID IN(SELECT TrackID FROM MFL_TrackInfo WHERE PlateID IN(SELECT PlateID FROM MFL_PlateInfo WHERE ProjectID = pID))"
+					" TrackID IN(SELECT TrackID FROM MFL_TrackInfo WHERE PlateID IN(SELECT PlateID FROM MFL_PlateInfo WHERE PlateID = pID))"
 					" ) MFL_TrackSSRecord);"
 					" DELETE"
 					" FROM"
@@ -642,6 +916,7 @@ bool SqlOp::InsertQuery(QString insert, const int year)
 	QSqlDatabase db = QSqlDatabase::database(ThreadParameter::getInstance()->mapDbConnectionName[year], false);
 	QSqlQuery query(db);
 	query.exec(insert);
+	//sqlite3_exec(db, "PRAGMA synchronous = OFF; ", 0, 0, 0);
 	if (query.lastError().isValid())
 	{
 		qDebug() << query.lastError();
@@ -822,7 +1097,6 @@ int SqlOp::ExportProjectDb(const QString &dbName, const QString &ID, const int y
 
 
 
-
 	//建表
 	for (int i = 0; i < m_vSqlCreatable.size(); i++)
 	{
@@ -846,7 +1120,7 @@ int SqlOp::ExportProjectDb(const QString &dbName, const QString &ID, const int y
 	QString query_devinfo = "select * from MFL_DevInfo where DevID in (select DevID from MFL_ProjectInfo where ProjectID = ?)";
 	QVector< QVector<QVariant> > devinfo;
 	devinfo = SqlOp::SelectQuery2(query_devinfo, devinfoTableCounts, bindValue, year);
-	qDebug() << devinfo[0].size();
+//	qDebug() << devinfo[0].size();
 
 	//查询 MFL_DevFactors 表
 	const int devFactorsTableCounts = 41;
@@ -1045,6 +1319,25 @@ int SqlOp::ExportProjectDb(const QString &dbName, const QString &ID, const int y
 	{
 		return -3;
 	}
+
+	delete[] deAdjust; deAdjust = NULL;
+	delete[] devFactors; devFactors = NULL;
+	delete[] project; project = NULL;
+	delete[] plate; plate = NULL;
+	delete[] track; track = NULL;
+	delete[] trackcheck; trackcheck = NULL;
+	delete[] trackSSRecord; trackSSRecord = NULL;
+
+	//清除vector所占的内存
+	QVector<QString>().swap(bindValue);
+	QVector<QVector<QVariant> >().swap(devinfo);
+	QVector<QVector<QVariant> >().swap(devFactorsInfo);
+	QVector<QVector<QVariant> >().swap(deAdjustInfo);
+	QVector<QVector<QVariant> >().swap(projectinfo);
+	QVector<QVector<QVariant> >().swap(plateinfo);
+	QVector<QVector<QVariant> >().swap(trackinfo);
+	QVector<QVector<QVariant> >().swap(trackrecord);
+	QVector<QVector<QVariant> >().swap(trackSSRecordInfo);
 }
 
 /*******************************************************************************************
@@ -1073,7 +1366,7 @@ QVector< QVector <QVariant>> SqlOp::ImportProjectDbInfo(const QString &dbPath)
 
 		projectinfo = SelectQuery3(query_projectinfo, 14, importDB);
 	}
-
+	QVector<QVector<QVariant> >().swap(queryResult);
 	return projectinfo;
 }
 /*******************************************************************************************
@@ -1220,6 +1513,8 @@ int SqlOp::ImportProjectDb(int year, int type)
 			flag = false;
 			
 		}
+		delete[] deAdjust;  deAdjust = NULL;
+		delete[] devFactors; devFactors = NULL;
 	}
 	else
 	{
@@ -1270,7 +1565,8 @@ int SqlOp::ImportProjectDb(int year, int type)
 			flag = false;
 
 		}
-		
+		delete[] deAdjust;  deAdjust = NULL;
+		delete[] devFactors; devFactors = NULL;
 	}
 
 
@@ -1343,7 +1639,8 @@ int SqlOp::ImportProjectDb(int year, int type)
 		}
 		if (!query.execBatch()) //进行批处理，如果出错就输出错误
 			qDebug() << query.lastError();
-
+		delete[] plate; plate = NULL;
+		delete[] track; track = NULL;
 	}
 	else if (type == 1)
 	{
@@ -1380,12 +1677,13 @@ int SqlOp::ImportProjectDb(int year, int type)
 		}
 		qDebug() << "plateinfo time:" << time.elapsed() / 1000.0 << "s";
 
+		//插入Trackinfo
 		QString sqlString = "INSERT INTO MFL_TrackInfo values(? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, ?, ?)";
 		QString appendStr = "(? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
 		if (!InsertTable(sqlString, appendStr, trackinfo, trackInfoTableCounts, dbSqlOp))
 			flag = false;
 		qDebug() << "trackinfo time:" << time.elapsed() / 1000.0 << "s";
-		
+		//插入TrackCheckRecord 
 		sqlString = "INSERT INTO MFL_TrackCheckRecord values(?,?,?,?,?,?,?,?,?,?)";
 		appendStr = "(?,?,?,?,?,?,?,?,?,?)";
 		if (!InsertTable(sqlString, appendStr, trackrecord,checkRecordTableCounts,dbSqlOp))
@@ -1393,14 +1691,26 @@ int SqlOp::ImportProjectDb(int year, int type)
 			flag = false;
 		}
 		qDebug() << "check time:" << time.elapsed() / 1000.0 << "s";
-	
+		//插入SSrecordinfo
 		sqlString = "INSERT INTO MFL_TrackSSRecord values(?,?,?,?,?,?,?,?,?)";
 		appendStr = "(?,?,?,?,?,?,?,?,?)";
 		if (!InsertTable(sqlString, appendStr, trackSSRecordInfo, checkSSRecordTableCounts, dbSqlOp))
 			flag = false;
 		qDebug() << "SS time:" << time.elapsed() / 1000.0 << "s";
+		
+
+		delete[] plate; plate = NULL;
+		QVector<QVector<QVariant> >().swap(trackrecord);
+		QVector<QVector<QVariant> >().swap(trackSSRecordInfo);
 	}
 
+	QVector<QVector<QVariant> >().swap(queryResult);
+	QVector<QVector<QVariant> >().swap(devinfo);
+	QVector<QVector<QVariant> >().swap(deFactorsInfo);
+	QVector<QVector<QVariant> >().swap(deAdjustInfo);
+	QVector<QVector<QVariant> >().swap(projectinfo);
+	QVector<QVector<QVariant> >().swap(plateinfo);
+	QVector<QVector<QVariant> >().swap(trackinfo);
 
 	if (!flag)//如果flag==false，回滚。
 	{
@@ -1419,6 +1729,8 @@ int SqlOp::ImportProjectDb(int year, int type)
 			return -3; //-3 为提交事务失败
 		}
 	}
+
+
 
 
 }
