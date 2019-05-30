@@ -8,266 +8,7 @@
 QVector<QString> SqlOp::m_vSqlCreatable{ 1 };
 SqlOp::SqlOp()
 {
-	//初始化sql语句
-	//MFL_DevInfo 
-	m_vSqlCreatable.pop_back();
-	m_vSqlCreatable.append(
-		"create table MFL_DevInfo("
-		"DevID                CHAR(8)                        not null,"
-		"DevName              VARCHAR(25),"
-		"SysName              VARCHAR(50),"
-		"CheckCompany         VARCHAR(60),"
-		"CheckMan             VARCHAR(30),"
-		"ProductionDate       DATE,"
-		"SellDate             DATE,"
-		"HardwareVersion      VARCHAR(8),"
-		"SoftwareVersion      VARCHAR(8),"
-		"ChannelNumber        INTEGER,"
-		"SpaceLength          FLOAT,"
-		"StepLength           FLOAT,"
-		"DevWidth             FLOAT,"
-		"DevLength            FLOAT,"
-		"DevBackEndLength     FLOAT,"
-		"DevFrontEndLength    FLOAT,"
-		"DevWeight            FLOAT,"
-		"ServicePhone         VARCHAR(20),"
-		"Remark               VARCHAR(200),"
-		"AdjustGroupID          CHAR(38),"
-		"primary key(DevID));"
-		);
-
-	//MFL_DeAdjust
-	m_vSqlCreatable.append(
-		"create table MFL_DeAdjust ("
-		"AdjustID             NUMERIC(6)                     not null,"
-		"DevID                CHAR(8),"
-		"AdjustTime           DATE,"
-		"Remark               VARCHAR(200),"
-		"ThresholdValue1      FLOAT,"
-		"ThresholdPer1        FLOAT,"
-		"ThresholdPer1X       FLOAT,"
-		"ThresholdPer1Value   FLOAT,"
-		"ThresholdPer2        FLOAT,"
-		"ThresholdPer2X       FLOAT,"
-		"ThresholdPer2Value   FLOAT,"
-		"ThresholdPer3        FLOAT,"
-		"ThresholdPer3X       FLOAT,"
-		"ThresholdPer3Value   FLOAT,"
-		"ThresholdPer4        FLOAT,"
-		"ThresholdPer4X       FLOAT,"
-		"ThresholdPer4Value   FLOAT,"
-		"Parameter1           FLOAT,"
-		"Parameter2           FLOAT,"
-		"Parameter3           FLOAT,"
-		"Parameter4           FLOAT,"
-		"Parameter5           FLOAT,"
-		"SteelThickness       INT,"
-		"DisValue             INT,"
-		"AdjustType             INT,"
-		"AdjustGroupID          CHAR(38),"
-		"primary key(AdjustID),"
-		"foreign key(DevID)"
-		"references MFL_DevInfo(DevID) ); ");
-
-	//MFL_DevFactors
-	m_vSqlCreatable.append(
-		"create table MFL_DevFactors("
-		"DevCompID            NUMERIC(6)                     not null,"
-		"DevID                CHAR(8)                        ,"
-		"SteelThickness       INT,"
-		"DisValue             INT,"
-		"Channel1Factor       float,"
-		"Channel2Factor       float,"
-		"Channel3Factor       float,"
-		"Channel4Factor       float,"
-		"Channel5Factor       float,"
-		"Channel6Factor       float,"
-		"Channel7Factor       float,"
-		"Channel8Factor       float,"
-		"Channel9Factor       float,"
-		"Channel10Factor      float,"
-		"Channel11Factor      float,"
-		"Channel12Factor      float,"
-		"Channel13Factor      float,"
-		"Channel14Factor      float,"
-		"Channel15Factor      float,"
-		"Channel16Factor      float,"
-		"Channel17Factor      float,"
-		"Channel18Factor      float,"
-		"Channel19Factor      float,"
-		"Channel20Factor      float,"
-		"Channel21Factor      float,"
-		"Channel22Factor      float,"
-		"Channel23Factor      float,"
-		"Channel24Factor      float,"
-		"Channel25Factor      float,"
-		"Channel26Factor      float,"
-		"Channel27Factor      float,"
-		"Channel28Factor      float,"
-		"Channel29Factor      float,"
-		"Channel30Factor      float,"
-		"Channel31Factor      float,"
-		"Channel32Factor      float,"
-		"Channel33Factor      float,"
-		"Channel34Factor      float,"
-		"Channel35Factor      float,"
-		"Channel36Factor      float,"
-		"CompType             INT,"
-		"primary key(DevCompID)); "
-		);
-
-	//MFL_ProjectInfo
-	m_vSqlCreatable.append(
-		"create table MFL_ProjectInfo ("
-		"ProjectID            CHAR(38)                       not null,"
-		"DevID                CHAR(8)                                ,"
-		"ProjectName          VARCHAR(50),"
-		"CompanyName          VARCHAR(60),"
-		"MFLAlert             FLOAT,"
-		"EnvShape             VARCHAR(20),"
-		"PointPosition        INTEGER,"
-		"CoordinatesAutoGen   BOOL,"
-		"EnvLength            FLOAT,"
-		"EnvWidth             FLOAT,"
-		"EnvArea              FLOAT,"
-		"PlateNumber          INTEGER,"
-		"IsAutoCreateEdge     BOOL,"
-		"EdgePlateNumber      INTEGER,"
-		"EdgePlateWidth       FLOAT,"
-		"DefectPlateNumber    INTEGER                         default 0,"
-		"CheckMan             VARCHAR(20),"
-		"CreateTime           DATE,"
-		"CheckTime            DATE,"
-		"UsedYear             INTEGER,"
-		"PlateThickness       FLOAT,"
-		"EdgePlateThickness   float,"
-		"CoatThickness        FLOAT,"
-		"CoatStatus           VARCHAR(50),"
-		"PlateMaterial        VARCHAR(50),"
-		"StoreMaterial        VARCHAR(50),"
-		"DefectArea20         FLOAT                           default 0,"
-		"DefectArea40         FLOAT                           default 0,"
-		"DefectArea60         FLOAT                           default 0,"
-		"DefectArea80         FLOAT                           default 0,"
-		"MaxDefectPercent     FLOAT                           default 0,"
-		"ProjectPic           LONG VARBINARY,"
-		"IsCompleted          BOOL,"
-		"EdgeCircleDegree     INTEGER,"
-		"Remark               VARCHAR(200),"
-		"primary key(ProjectID),"
-		"foreign key(DevID)"
-		"references MFL_DevInfo(DevID));"
-		);
-	
-	//MFL_PlateInfo
-	m_vSqlCreatable.append(
-		"create table MFL_PlateInfo("
-		"PlateID              CHAR(38)                       not null,"
-		"ProjectID            CHAR(38),"
-		"RowNo                int,"
-		"ColumnNo             int,"
-		"PlateName            VARCHAR(50),"
-		"PointPosition        INTEGER,"
-		"PlateType            INTEGER,"
-		"PlateLength          FLOAT,"
-		"PlateWidth           FLOAT,"
-		"PlateLength2         FLOAT,"
-		"PlateWidth2          FLOAT,"
-		"XCoords              FLOAT,"
-		"YCoords              FLOAT,"
-		"CreateTime           DATE,"
-		"CheckTime            DATE,"
-		"DefectArea20         FLOAT                           default 0,"
-		"DefectArea40         FLOAT                           default 0,"
-		"DefectArea60         FLOAT                           default 0,"
-		"DefectArea80         FLOAT                           default 0,"
-		"MaxDefectPercent     FLOAT                           default 0,"
-		"PlateArea            FLOAT,"
-		"ScanPercent          FLOAT                           default 0,"
-		"IsDefect             BOOL                            default '0',"
-		"PlatePic             LONG VARBINARY,"
-		"PlatePic20           LONG VARBINARY,"
-		"PlatePic30           LONG VARBINARY,"
-		"PlatePic40           LONG VARBINARY,"
-		"PlatePic50           LONG VARBINARY,"
-		"PlatePic60           LONG VARBINARY,"
-		"PlatePic70           LONG VARBINARY,"
-		"PlatePic80           LONG VARBINARY,"
-		"Remark               VARCHAR(200),"
-		"DetectDirection      INT,"
-		"primary key(PlateID),"
-		"foreign key(ProjectID)"
-		"references MFL_ProjectInfo(ProjectID) ); "
-		);
-	
-	//MFL_TrackInfo
-	m_vSqlCreatable.append(
-		"create table MFL_TrackInfo("
-		"TrackID              CHAR(38)                       not null,"
-		"PlateID              CHAR(38),"
-		"TrackRowNo           INT,"
-		"TrackColumnNo        INT,"
-		"XCoords              FLOAT,"
-		"YCoords              FLOAT,"
-		"CheckAngle           INTEGER                         default 0,"
-		"CheckDirection       INTEGER                         default 0,"
-		"TrackLength          FLOAT,"
-		"TrackWidth           FLOAT,"
-		"CreateTime           DATE,"
-		"CheckTime            DATE,"
-		"DefectArea20         FLOAT                           default 0,"
-		"DefectArea40         FLOAT                           default 0,"
-		"DefectArea60         FLOAT                           default 0,"
-		"DefectArea80         FLOAT                           default 0,"
-		"MaxDefectPercent     FLOAT                           default 0,"
-		"TrackPic             LONG VARBINARY,"
-		"Remark               VARCHAR(200),"
-		"ChannelNumber        INTEGER,"
-		"SpaceLength          FLOAT,"
-		"StepLength           FLOAT,"
-		"primary key(TrackID),"
-		"foreign key(PlateID)"
-		"references MFL_PlateInfo(PlateID) "
-		");"
-		);
-
-	//MFL_TrackCheckRecord
-	m_vSqlCreatable.append(
-		"create table MFL_TrackCheckRecord("
-		"RecordID             CHAR(38)                       not null,"
-		"TrackID              CHAR(38),"
-		"ChannelID            CHAR(3),"
-		"CheckTime            DATE,"
-		"XCoords              FLOAT,"
-		"YCoords              FLOAT,"
-		"CheckValue           FLOAT,"
-		"WaveletValue         FLOAT,"
-		"DefectPercent        FLOAT                           default 0,"
-		"RecordType        INT,"
-		"primary key(RecordID),"
-		"foreign key(TrackID)"
-		"references MFL_TrackInfo(TrackID)"
-		");"
-		);
-
-	//MFL_TrackSSRecord
-	m_vSqlCreatable.append(
-		"CREATE TABLE MFL_TrackSSRecord("
-		"RecordID             CHAR(38)                       not null,"
-		"TrackID              CHAR(38),"
-		"ChannelID            CHAR(3),"
-		"CheckTime            DATE,"
-		"XCoords              FLOAT,"
-		"YCoords              FLOAT,"
-		"CheckValue           FLOAT,"
-		"WaveletValue         FLOAT,"
-		"DefectPercent        FLOAT                           default 0,"
-		"primary key(RecordID),"
-		"foreign key(TrackID)"
-		"references MFL_TrackInfo(TrackID)"
-		"); "
-		);
-
+        //append creatr tables sql
 
 	m_vSqlCreatable.append(
 		"CREATE INDEX [ProjectIDIndex] ON [MFL_PlateInfo] ([ProjectID]); "
@@ -945,7 +686,6 @@ bool SqlOp::InsertQuery(QString insert, QVector<QVariant> bindvalue, const int y
 		return false;
 	}
 	QSqlDatabase db = QSqlDatabase::database(ThreadParameter::getInstance()->mapDbConnectionName[year], false);
-	int a = 0;
 	QSqlQuery query(db);
 	query.prepare(insert);
 	for (int i = 0; i < bindvalue.size(); i++)
@@ -966,110 +706,181 @@ bool SqlOp::InsertQuery(QString insert, QVector<QVariant> bindvalue, const int y
 
 	return true;
 }
+
+/*******************************************************************************************
+* 函数名称：InsertQuery
+* 函数介绍：插入语句，带有参数
+* 输入参数：（1）insert：sql语句； （2）bindValue：动态参数  （3）year： 要查询数据库的年份
+* 输出参数：bool
+* 返回值  ：操作结果
+********************************************************************************************/
+bool SqlOp::InsertQuery(QString insert, QVector<QVector<QVariant> > bindValue, const int year)
+{
+	if (!ThreadParameter::getInstance()->mapDbConnectionName.contains(year))
+	{
+		qDebug() << "No connections are available";
+		return false;
+	}
+	QSqlDatabase db = QSqlDatabase::database(ThreadParameter::getInstance()->mapDbConnectionName[year], false);
+	int a = 0;
+	QSqlQuery query(db);
+	query.prepare(insert);
+	
+	int numCol = bindValue[0].size();
+	QVariantList *temp = new QVariantList[numCol];
+	for (int i = 0; i < bindValue.size(); i++)
+	{
+		for (int j = 0; j < numCol; j++)
+			temp[j] << bindValue[i][j];
+	}
+
+	
+	for (int i = 0; i < numCol; i++)
+	{
+		query.bindValue(i, temp[i]);
+	}
+
+	if (!query.execBatch()) //进行批处理，如果出错就输出错误
+	{
+		qDebug() << query.lastError();
+		return false;
+	}
+
+	return true;
+}
+/*******************************************************************************************
+* 函数名称：InsertQuery
+* 函数介绍：插入语句，带有参数
+* 输入参数：（1）insert：sql语句； （2）bindValue：动态参数  （3）year： 要查询数据库的年份
+* 输出参数：bool
+* 返回值  ：操作结果
+********************************************************************************************/
+bool SqlOp::InsertQuery1(QString insert, QVector<QVector<QVariant> > bindValue, const int year)
+{
+		if (!ThreadParameter::getInstance()->mapDbConnectionName.contains(year))
+	{
+		qDebug() << "No connections are available";
+		return false;
+	}
+	QSqlDatabase db = QSqlDatabase::database(ThreadParameter::getInstance()->mapDbConnectionName[year], false);
+	int a = 0;
+	QSqlQuery query(db);
+	query.prepare(insert);
+	
+	int numCol = bindValue.size();
+
+	for (int i = 0; i < numCol; i++)
+	{
+		query.bindValue(i, bindValue[i].toList());
+	}
+
+	if (!query.execBatch()) //进行批处理，如果出错就输出错误
+	{
+		qDebug() << query.lastError();
+		return false;
+	}
+
+	return true;
+}
 /*******************************************************************************************
 * 函数名称：InsertTable
 * 函数介绍：插入记录很多的表 如（trackcheckRecord SSRecord等）
-* 1.构造sql语句如 insert into ‘table’ values (?,?)···(?,?) 一次插入十条记录，加快速度 
-* 2.对结果集进行处理 使其分成10组 整列整列的匹配
-* 3.执行sql批处理语句
-* 4.对最后的单独剩出来 的记录进行处理  (如 104条记录 最后剩下4条 就不能拼凑成一次插入十条)
-* 5.注 ：为什么选择一次10条 是因为 测了一些数据 发现10条最快
+* 1.构造sql语句如 insert into ‘table’ values (?,?)···(?,?) 一次插入300条记录，加快速度
+* 2.绑定对应值然后执行
+* 3.对最后的单独剩出来的记录进行处理  (如 304条记录 最后剩下4条 就不能拼凑成一次插入300条)
+* 注：300条是测试后发现的最优解
 * 输入参数：（1）insert：插入语句； （2）append：拼接语句  (3) result: 要插入的数据集 （4） num ：表的列数 （5）qSqlDB：要插入的数据库
 * 返回值  ：false 失败 true 成功
 ********************************************************************************************/
 bool SqlOp::InsertTable(QString insert,QString append, QVector<QVector<QVariant> > result, int num, QSqlDatabase qSqlDB)
 {
+	QTime time;
+	time.start();
 	QSqlQuery query(qSqlDB);
 	QString tmpStr = insert;
-	if (result.size() > 100)
+	if (result.size() > 300)
 	{
 		//构造sql语句
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < 299; i++)
 		{
 			insert.append(',');
 			insert += append;
 		}
 		query.prepare(insert);
 
-		//将结果集由一行一行变成一列一列
-		QVariantList *colResult = new QVariantList[num];
-		for (int i = 0; i < result.size(); i++)
-		{
-			for (int j = 0; j < num; j++)
-				colResult[j] << result[i][j];
-		}
 
-		int rowCount = result.size() / 10;  //一共能分的组数
-		//进行分组 colRes10 的意思是将colRes分成10组
-		QVariantList *colRes10 = new QVariantList[num];
-		for (int i = 0; i < 10 * rowCount; i++)
+		int rowCount = result.size() / 300;
+		for (int i = 0; i < rowCount; i++)
 		{
-			for (int j = 0; j < num; j++)
-			{
-				colRes10[j] << colResult[j][i];
-			}
-			if ((i + 1) % rowCount == 0)
+			for (int j = 0; j < 300; j++)
 			{
 				for (int k = 0; k < num; k++)
 				{
-					query.addBindValue(colRes10[k]);
-					colRes10[k].clear();
+					query.bindValue(j*num + k, result[i * 300 + j][k]);
 				}
-
 			}
+			if (!query.exec()) //进行批处理，如果出错就输出错误
+			{
+				qDebug() << query.lastError();
+				return false;
+			}
+			
 		}
-		
-		if (!query.execBatch()) //进行批处理，如果出错就输出错误
-		{
-			qDebug() << query.lastError();
-			return false;
-		}
-
-
 		//处理后面剩下的分组
+
+		//从id处开始插入
+		int id = 300 * rowCount;
+		int restOfRow = result.size() - id;
+		
+		for (int i = 0; i < restOfRow-1; i++)
+		{
+			tmpStr.append(',');
+			tmpStr += append;
+		}
 		query.prepare(tmpStr);
-		for (int i = 10 * rowCount; i < result.size(); i++)
+		for (int i = 0; i < restOfRow; i++)
 		{
 			for (int j = 0; j < num; j++)
 			{
-				colRes10[j] << colResult[j][i];
+				query.bindValue(i*num + j, result[id + i][j]);
 			}
+			
 		}
-
-		for (int i = 0; i < num; i++)
-		{
-			query.addBindValue(colRes10[i]);
-		}
-		
-		if (!query.execBatch()) //进行批处理，如果出错就输出错误
+		if (!query.exec()) //进行批处理，如果出错就输出错误
 		{
 			qDebug() << query.lastError();
 			return false;
 		}
-		
 	}
-	//如果数据量较小 直接使用批处理更快
-	else
+	else if (result.size()!=0)
 	{
-		
+		int restOfRow = result.size() ;
+		for (int i = 0; i < restOfRow - 1; i++)
+		{
+			tmpStr.append(',');
+			tmpStr += append;
+		}
 		query.prepare(tmpStr);
-		QVariantList *colResult = new QVariantList[num];
-		for (int i = 0; i < result.size(); i++)
+		for (int i = 0; i < restOfRow; i++)
 		{
 			for (int j = 0; j < num; j++)
-				colResult[j] << result[i][j];
+			{
+				query.bindValue(i*num + j, result[i][j]);
+			}
+
 		}
-		for (int i = 0; i < num; i++)
-		{
-			query.addBindValue(colResult[i]);
-		}
-		if (!query.execBatch()) //进行批处理，如果出错就输出错误
+		if (!query.exec()) //进行批处理，如果出错就输出错误
 		{
 			qDebug() << query.lastError();
 			return false;
 		}
 	}
+
 	return true;
+
+
+
+
 }
 /*******************************************************************************************
 * 函数名称：ExportProjectDb
@@ -1398,7 +1209,12 @@ int SqlOp::ImportProjectDb(int year, int type)
 	//查询  MFL_DevInfo表
 	QString query_devinfo = "select * from MFL_DevInfo";
 	QVector< QVector <QVariant> > devinfo = SelectQuery3(query_devinfo, devTableCounts, importDB);
-	QString devID = devinfo[0][0].toString();
+	QString devID = "-1";
+	if (devinfo.size() > 0)
+	{
+		devID = devinfo[0][0].toString();
+	}
+	
 
 	QString queryProject = "SELECT ProjectID FROM MFL_ProjectInfo";
 	QVector< QVector <QVariant> > queryResult = SelectQuery3(queryProject, 1, importDB);
@@ -1447,129 +1263,136 @@ int SqlOp::ImportProjectDb(int year, int type)
 		flag = false;
 	};
 
-	//查询服务器上是否有该设备 
-	int devCount = -1;
-	QString devQuery = "select count(*) from MFL_DevInfo where DevID =%1 ";
-	query.exec(devQuery.arg(devID));
-	if (query.lastError().isValid())
+	//如果要导入的数据库中有设备信息
+	if (devinfo.size() > 0)
 	{
-		qDebug() << query.lastError();
-	}
-	else
-	{
-		qDebug() << "select success";
-		query.next();
-		devCount = query.value(0).toInt();
-	}
-
-	//如果有该设备就更新信息 ，没有就插入
-	if (devCount == 0)
-	{
-		//往数据库插入   MFL_DevInfo 表
-		query.prepare("INSERT INTO MFL_DevInfo values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-		for (int i = 0; i < devinfo[0].size(); i++)
-		{
-			query.bindValue(i, devinfo[0][i]);
-		}
-		if (!query.exec()) //进行批处理，如果出错就输出错误
+		//查询服务器上是否有该设备 
+		int devCount = -1;
+		QString devQuery = "select count(*) from MFL_DevInfo where DevID =%1 ";
+		query.exec(devQuery.arg(devID));
+		if (query.lastError().isValid())
 		{
 			qDebug() << query.lastError();
-			flag = false;
+		}
+		else
+		{
+			qDebug() << "select success";
+			query.next();
+			devCount = query.value(0).toInt();
 		}
 
-		//插入 MFL_devAdjust表
-		query.prepare("INSERT INTO MFL_DeAdjust values(?,?,date(?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-		QVariantList *deAdjust = new QVariantList[deAdjustTableCounts];
-		for (int i = 0; i < deAdjustInfo.size(); i++)
+		//如果有该设备就更新信息 ，没有就插入
+		if (devCount == 0)
 		{
-			for (int j = 0; j < deAdjustTableCounts; j++)
-				deAdjust[j].push_back(deAdjustInfo[i][j]);
-		}
-		for (int i = 0; i < deAdjustTableCounts; i++)
-		{
-			query.addBindValue(deAdjust[i]);
+			//往数据库插入   MFL_DevInfo 表
+			query.prepare("INSERT INTO MFL_DevInfo values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			for (int i = 0; i < devinfo[0].size(); i++)
+			{
+				query.bindValue(i, devinfo[0][i]);
+			}
+			if (!query.exec()) //进行批处理，如果出错就输出错误
+			{
+				qDebug() << query.lastError();
+				flag = false;
+			}
 
+			//插入 MFL_devAdjust表
+			query.prepare("INSERT INTO MFL_DeAdjust values(?,?,date(?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			QVariantList *deAdjust = new QVariantList[deAdjustTableCounts];
+			for (int i = 0; i < deAdjustInfo.size(); i++)
+			{
+				for (int j = 0; j < deAdjustTableCounts; j++)
+					deAdjust[j].push_back(deAdjustInfo[i][j]);
+			}
+			for (int i = 0; i < deAdjustTableCounts; i++)
+			{
+				query.addBindValue(deAdjust[i]);
+
+			}
+			if (!query.execBatch()) //进行批处理，如果出错就输出错误
+			{
+				qDebug() << "aaaa" << query.lastError();
+				flag = false;
+			}
+
+			query.prepare("INSERT INTO MFL_DevFactors values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
+			QVariantList *devFactors = new QVariantList[deFactorsTableCounts];
+			for (int i = 0; i < deFactorsInfo.size(); i++)
+			{
+				for (int j = 0; j < deFactorsTableCounts; j++)
+					devFactors[j] << deFactorsInfo[i][j];
+			}
+			for (int i = 0; i < deFactorsTableCounts; i++)
+			{
+				query.addBindValue(devFactors[i]);
+			}
+			if (!query.execBatch()) //进行批处理，如果出错就输出错误
+			{
+				qDebug() << "bbbbbbb" << query.lastError();
+				flag = false;
+
+			}
+			delete[] deAdjust;  deAdjust = NULL;
+			delete[] devFactors; devFactors = NULL;
 		}
-		if (!query.execBatch()) //进行批处理，如果出错就输出错误
+		else
 		{
-			qDebug() << "aaaa" << query.lastError();
-			flag = false;
+			//QString strUpdate = "UPDATE MFL_DevInfo SET DevID = :DevID ,DevName = :DevName ,SysName = :SysName,CheckCompany= :CheckCompany,CheckMan= :CheckMan ,ProductionDate= :ProductionDate ,SellDate= :SellDate ,HardwareVersion= :HardwareVersion,SoftwareVersion= :SoftwareVersion,ChannelNumber= :ChannelNumber,SpaceLength=:SpaceLength,StepLength=:StepLength,DevWidth=:DevWidth,DevLength=:DevLength,DevBackEndLength=:DevBackEndLength,DevFrontEndLength=:DevFrontEndLength,DevWeight=:DevWeight,ServicePhone=:ServicePhone,Remark=:Remark,AdjustGroupID=:AdjustGroupID WHERE DevID = '%1' ";
+			QString strUpdate = "UPDATE MFL_DevInfo SET DevID = ?,DevName = ? ,SysName = ?,CheckCompany= ?,CheckMan= ? ,ProductionDate= ? ,SellDate= ? ,HardwareVersion= ?,SoftwareVersion= ?,ChannelNumber= ?,SpaceLength=?,StepLength=?,DevWidth=?,DevLength=?,DevBackEndLength=?,DevFrontEndLength=?,DevWeight=?,ServicePhone=?,Remark=?,AdjustGroupID=? WHERE DevID = '%1' ";
+			//Delete_UpdateQuery(strUpdate.arg(devID), devinfo[0], year);
+
+			Delete_UpdateQuery(strUpdate.arg(devID), devinfo[0], year);
+
+			//删除重新插可以起到更新的作用
+			QString str2 = "DELETE FROM MFL_DeAdjust WHERE DevID =   '%1' ;";
+			QString str3 = "DELETE FROM MFL_DevFactors WHERE DevID = '%1' ;";
+			qDebug() << query.exec(str2.arg(devID));
+			qDebug() << query.exec(str3.arg(devID));
+
+			//插入 MFL_devAdjust表
+			query.prepare("INSERT INTO MFL_DeAdjust values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			QVariantList *deAdjust = new QVariantList[deAdjustTableCounts];
+			for (int i = 0; i < deAdjustInfo.size(); i++)
+			{
+				for (int j = 0; j < deAdjustTableCounts; j++)
+					deAdjust[j].push_back(deAdjustInfo[i][j]);
+			}
+			for (int i = 0; i < deAdjustTableCounts; i++)
+			{
+				query.addBindValue(deAdjust[i]);
+			}
+			if (!query.execBatch()) //进行批处理，如果出错就输出错误
+			{
+				qDebug() << "aaaa" << query.lastError();
+				flag = false;
+			}
+
+			query.prepare("INSERT INTO MFL_DevFactors values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
+			QVariantList *devFactors = new QVariantList[deFactorsTableCounts];
+			for (int i = 0; i < deFactorsInfo.size(); i++)
+			{
+				for (int j = 0; j < deFactorsTableCounts; j++)
+					devFactors[j] << deFactorsInfo[i][j];
+			}
+			for (int i = 0; i < deFactorsTableCounts; i++)
+			{
+				query.addBindValue(devFactors[i]);
+			}
+			if (!query.execBatch()) //进行批处理，如果出错就输出错误
+			{
+				qDebug() << "bbbbbbb" << query.lastError();
+				flag = false;
+
+			}
+			delete[] deAdjust;  deAdjust = NULL;
+			delete[] devFactors; devFactors = NULL;
 		}
 
-		query.prepare("INSERT INTO MFL_DevFactors values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
-		QVariantList *devFactors = new QVariantList[deFactorsTableCounts];
-		for (int i = 0; i < deFactorsInfo.size(); i++)
-		{
-			for (int j = 0; j < deFactorsTableCounts; j++)
-				devFactors[j] << deFactorsInfo[i][j];
-		}
-		for (int i = 0; i < deFactorsTableCounts; i++)
-		{
-			query.addBindValue(devFactors[i]);
-		}
-		if (!query.execBatch()) //进行批处理，如果出错就输出错误
-		{
-			qDebug() << "bbbbbbb" << query.lastError();
-			flag = false;
-			
-		}
-		delete[] deAdjust;  deAdjust = NULL;
-		delete[] devFactors; devFactors = NULL;
+
+
+
 	}
-	else
-	{
-		//QString strUpdate = "UPDATE MFL_DevInfo SET DevID = :DevID ,DevName = :DevName ,SysName = :SysName,CheckCompany= :CheckCompany,CheckMan= :CheckMan ,ProductionDate= :ProductionDate ,SellDate= :SellDate ,HardwareVersion= :HardwareVersion,SoftwareVersion= :SoftwareVersion,ChannelNumber= :ChannelNumber,SpaceLength=:SpaceLength,StepLength=:StepLength,DevWidth=:DevWidth,DevLength=:DevLength,DevBackEndLength=:DevBackEndLength,DevFrontEndLength=:DevFrontEndLength,DevWeight=:DevWeight,ServicePhone=:ServicePhone,Remark=:Remark,AdjustGroupID=:AdjustGroupID WHERE DevID = '%1' ";
-		QString strUpdate = "UPDATE MFL_DevInfo SET DevID = ?,DevName = ? ,SysName = ?,CheckCompany= ?,CheckMan= ? ,ProductionDate= ? ,SellDate= ? ,HardwareVersion= ?,SoftwareVersion= ?,ChannelNumber= ?,SpaceLength=?,StepLength=?,DevWidth=?,DevLength=?,DevBackEndLength=?,DevFrontEndLength=?,DevWeight=?,ServicePhone=?,Remark=?,AdjustGroupID=? WHERE DevID = '%1' ";
-		//Delete_UpdateQuery(strUpdate.arg(devID), devinfo[0], year);
-
-		Delete_UpdateQuery(strUpdate.arg(devID), devinfo[0], year);
-
-		//删除重新插可以起到更新的作用
-		QString str2 = "DELETE FROM MFL_DeAdjust WHERE DevID =   '%1' ;";
-		QString str3 = "DELETE FROM MFL_DevFactors WHERE DevID = '%1' ;";
-		qDebug() << query.exec(str2.arg(devID));
-		qDebug() << query.exec(str3.arg(devID));
-		
-		//插入 MFL_devAdjust表
-		query.prepare("INSERT INTO MFL_DeAdjust values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-		QVariantList *deAdjust = new QVariantList[deAdjustTableCounts];
-		for (int i = 0; i < deAdjustInfo.size(); i++)
-		{
-			for (int j = 0; j < deAdjustTableCounts; j++)
-				deAdjust[j].push_back(deAdjustInfo[i][j]);
-		}
-		for (int i = 0; i < deAdjustTableCounts; i++)
-		{
-			query.addBindValue(deAdjust[i]);
-		}
-		if (!query.execBatch()) //进行批处理，如果出错就输出错误
-		{
-			qDebug() << "aaaa" << query.lastError();
-			flag = false;
-		}
-
-		query.prepare("INSERT INTO MFL_DevFactors values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
-		QVariantList *devFactors = new QVariantList[deFactorsTableCounts];
-		for (int i = 0; i < deFactorsInfo.size(); i++)
-		{
-			for (int j = 0; j < deFactorsTableCounts; j++)
-				devFactors[j] << deFactorsInfo[i][j];
-		}
-		for (int i = 0; i < deFactorsTableCounts; i++)
-		{
-			query.addBindValue(devFactors[i]);
-		}
-		if (!query.execBatch()) //进行批处理，如果出错就输出错误
-		{
-			qDebug() << "bbbbbbb" << query.lastError();
-			flag = false;
-
-		}
-		delete[] deAdjust;  deAdjust = NULL;
-		delete[] devFactors; devFactors = NULL;
-	}
-
-
+	
 
 	//插入  MFL_ProjectInfo 表
 	query.prepare("INSERT INTO MFL_ProjectInfo values(?,?,?,?,?,?,?,?,?, ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, ?, ? , ? ,? )");
@@ -1590,7 +1413,6 @@ int SqlOp::ImportProjectDb(int year, int type)
 		qDebug() << query.lastError();
 		flag = false;
 	}
-
 
 	if (type == 2)
 	{
@@ -1638,7 +1460,10 @@ int SqlOp::ImportProjectDb(int year, int type)
 			query.addBindValue(track[i]);
 		}
 		if (!query.execBatch()) //进行批处理，如果出错就输出错误
+		{
 			qDebug() << query.lastError();
+			flag = false;
+		}
 		delete[] plate; plate = NULL;
 		delete[] track; track = NULL;
 	}
@@ -1683,6 +1508,7 @@ int SqlOp::ImportProjectDb(int year, int type)
 		if (!InsertTable(sqlString, appendStr, trackinfo, trackInfoTableCounts, dbSqlOp))
 			flag = false;
 		qDebug() << "trackinfo time:" << time.elapsed() / 1000.0 << "s";
+		
 		//插入TrackCheckRecord 
 		sqlString = "INSERT INTO MFL_TrackCheckRecord values(?,?,?,?,?,?,?,?,?,?)";
 		appendStr = "(?,?,?,?,?,?,?,?,?,?)";
@@ -1691,6 +1517,7 @@ int SqlOp::ImportProjectDb(int year, int type)
 			flag = false;
 		}
 		qDebug() << "check time:" << time.elapsed() / 1000.0 << "s";
+		
 		//插入SSrecordinfo
 		sqlString = "INSERT INTO MFL_TrackSSRecord values(?,?,?,?,?,?,?,?,?)";
 		appendStr = "(?,?,?,?,?,?,?,?,?)";

@@ -17,17 +17,7 @@
 * //导入时 与本地文件的数据库连接  map对应的key 为1 
 * //导出时 与本地文件的数据库连接  map对应的key 为2
 * //其他与服务器上数据库的连接 map 对应的key 都为年份 （int）
-* 作    者：陈梦林
-* 完成日期：2016年6月17日
-*
-* 更新历史：
-* 1，更新时间：2018.7.24
-*    更新内容：增加对MYSQL的支持
-*    作    者：卢浩杰
-*
-* 2，更新时间：2018.9.11
-*	 更新内容：增加数据库创建，指定数据库连接等功能
-*    作    者：王天奇
+
 * *********************************************************************************************/
 enum
 {
@@ -101,6 +91,12 @@ public:
 	//insert into table (column1,cloumn2,column3,……) values(?,?,?,……)
 	static bool InsertQuery(QString insert, const int year);
 	static bool InsertQuery(QString insert, QVector< QVariant> bindValue, const int year);
+	//批量插入
+
+	//区别是上面的bindvalue 是一行一行字段
+	//下面的是一列一列的字段
+	static bool InsertQuery(QString insert, QVector<QVector<QVariant> > bindValue, const int year);
+	static bool	InsertQuery1(QString insert, QVector<QVector<QVariant> > bindValue, const int year);
 	//插入 trackCheck等表
 	static bool InsertTable(QString insert, QString append,QVector<QVector<QVariant> > result, int num, QSqlDatabase qSqlDB);
 
